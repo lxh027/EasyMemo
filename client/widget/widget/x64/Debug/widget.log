@@ -1,0 +1,7 @@
+﻿  moc MainWindow.h
+  MainWindow.cpp
+  main.cpp
+  moc_MainWindow.cpp
+MainWindow.obj : error LNK2019: 无法解析的外部符号 "public: virtual __cdecl MainWindow::~MainWindow(void)" (??1MainWindow@@UEAA@XZ)，该符号在函数 "public: virtual void * __cdecl MainWindow::`scalar deleting destructor'(unsigned int)" (??_GMainWindow@@UEAAPEAXI@Z) 中被引用
+main.obj : error LNK2001: 无法解析的外部符号 "public: virtual __cdecl MainWindow::~MainWindow(void)" (??1MainWindow@@UEAA@XZ)
+D:\WorkSpace\Editor\client\widget\x64\Debug\widget.exe : fatal error LNK1120: 1 个无法解析的外部命令
