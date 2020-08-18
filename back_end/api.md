@@ -116,3 +116,22 @@
 }
 ```
 
+# convert
+    use: markdown转html
+    method: POST
+    path: servername/api/md2html
+    param:
+        text: require(markdown原文)
+      
+- 转换成功
+```cpp
+{
+    "status": 0,
+    "message": "转换成功",
+    "data": {
+        "html": "<h1>123123</h1>\n<h1>555</h1>"
+    }
+}
+```
+
+
