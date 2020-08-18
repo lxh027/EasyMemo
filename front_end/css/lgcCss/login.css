@@ -1,0 +1,9 @@
+.login-page{
+	background-image: url(../../img/photos/login-background.png);
+}
+.btn {//圆角按钮
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+
+}
