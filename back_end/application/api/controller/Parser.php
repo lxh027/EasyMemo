@@ -19,7 +19,10 @@ class Parser extends Base
             return apiReturn(CODE_ERROR, $markdownValidate->getError(), '');
         }
 
-        $html = $parser->text($req['text']);
+        $html = $parser
+            ->setBreaksEnabled(true)
+            ->setMarkupEscaped(true)
+            ->text($req['text']);
         return apiReturn(CODE_SUCCESS, '转换成功', ['html' => $html]);
     }
 }
