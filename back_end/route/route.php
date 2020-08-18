@@ -14,10 +14,10 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
-Route::rule('api/register', 'api/Register/register');
-Route::rule('api/login/login', 'api/Login/login');
-Route::rule('api/login/check_login', 'api/Login/checkLogin');
-Route::rule('api/logout', 'api/login/logout');
-Route::rule('api/md2html', 'api/parser/md2html');
+Route::rule('api/register', 'api/Register/register')->allowCrossDomain();
+Route::rule('api/login/login', 'api/Login/login')->allowCrossDomain();
+Route::rule('api/login/check_login', 'api/Login/checkLogin')->allowCrossDomain();
+Route::rule('api/logout', 'api/login/logout')->allowCrossDomain();
+Route::rule('api/md2html', 'api/parser/md2html')->allowCrossDomain();
 return [
 ];
