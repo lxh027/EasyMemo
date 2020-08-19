@@ -17,7 +17,7 @@ Route::get('hello/:name', 'index/hello');
 Route::rule('api/register', 'api/Register/register')->allowCrossDomain();
 Route::rule('api/login/login', 'api/Login/login')->allowCrossDomain();
 Route::rule('api/login/check_login', 'api/Login/checkLogin')->allowCrossDomain();
-Route::rule('api/login/forget_password', 'api/Login/resetPassword')->allowCrossDomain();
+Route::rule('api/login/reset_password', 'api/Login/resetPassword')->allowCrossDomain();
 Route::rule('api/logout', 'api/login/logout')->allowCrossDomain();
 
 Route::rule('api/user/find', 'api/User/getUserInfo')->allowCrossDomain();

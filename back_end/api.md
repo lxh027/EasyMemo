@@ -85,10 +85,10 @@
 }
 ```
 
-# ForgetPassword
+# ResetPassword
     use: 重置密码
     method: POST
-    path: servername/api/login/forget_password
+    path: servername/api/login/reset_password
     param:
         username: require|max:20
         password: require|len:6-16
