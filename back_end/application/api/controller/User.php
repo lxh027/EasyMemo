@@ -14,13 +14,13 @@ class User extends Base
         $userValidate = new UserValidate();
         $userModel = new UserModel();
 
-        $req = input('post.');
+        /*$req = input('post.');
         $res = $userValidate->scene('search')->check($req);
         if ($res != VALIDATE_PASS) {
             return apiReturn(CODE_ERROR, $userValidate->getError(), '');
-        }
+        }*/
 
-        $resp = $userModel->getUserInfo($req['username']);
+        $resp = $userModel->getUserInfo(Session::get('username'));
         return apiReturn($resp['code'], $resp['msg'], $resp['data']);
     }
 

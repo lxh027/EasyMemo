@@ -165,7 +165,7 @@
     method: POST
     path: servername/api/user/find
     param:
-        username: require
+        null
     
 - 查找成功
 ```json
