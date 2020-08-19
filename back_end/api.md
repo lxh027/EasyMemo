@@ -85,6 +85,32 @@
 }
 ```
 
+# ForgetPassword
+    use: 重置密码
+    method: POST
+    path: servername/api/login/forget_password
+    param:
+        username: require|max:20
+        password: require|len:6-16
+        password_check: require|len:6-16
+        email: require
+- 修改成功
+```json
+{
+    "status": 0,
+    "message": "修改成功",
+    "data": []
+}
+```
+- 用户名邮箱不正确
+```json
+{
+    "status": -1,
+    "message": "用户名或邮箱不存在",
+    "data": []
+}
+```
+
 # CheckLogin
     use: 检查登录状态
     method: POST
@@ -131,6 +157,37 @@
     "data": {
         "html": "<h1>123123</h1>\n<h1>555</h1>"
     }
+}
+```
+
+# getUserInfo
+    use: 获取用户信息
+    method: POST
+    path: servername/api/user/find
+    param:
+        username: require
+    
+- 查找成功
+```json
+{
+    "status": 0,
+    "message": "查找成功",
+    "data": {
+        "id": 3,
+        "username": "admin",
+        "password": "823b5817cadd75bb4809a539ff68a5d3",
+        "nick": "lxh001",
+        "email": "992874705@qq.com",
+        "contact": ""
+    }
+}
+```
+- 查找失败
+```json
+{
+    "status": -1,
+    "message": "查找失败",
+    "data": []
 }
 ```
 

@@ -59,4 +59,25 @@ class Login extends Controller
         }
         return apiReturn(CODE_ERROR, '未登陆', '');
     }
+
+    public function resetPassword() {
+        $userValidate = new UserValidate();
+        $userModel = new UserModel();
+
+        $req = input('post.');
+        $res = $userValidate->scene('forget_password')->check($req);
+        if ($res != VALIDATE_PASS) {
+            return apiReturn(CODE_ERROR, $userValidate->getError(), '');
+        }
+        if ($req['password'] !== $req['password_check']) {
+            return apiReturn(CODE_ERROR, '两次输入密码不一致', '');
+        }
+        $data = [
+            'username'  => $req['username'],
+            'email'     => $req['email'],
+            'password'  => md5(base64_encode($req['password']))
+        ];
+        $resp = $userModel->resetPassword($data);
+        return apiReturn($resp['code'], $resp['msg'], $resp['data']);
+    }
 }

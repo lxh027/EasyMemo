@@ -33,5 +33,8 @@ class UserValidate extends Validate
     protected $scene = [
         'register'      =>  ['username', 'nick', 'password', 'password_check', 'email'],
         'login'         =>  ['username', 'password'],
+        'forget_password'   =>  ['username', 'email', 'password', 'password_check'],
+        'search'        =>  ['username'],
+        'edit_nick'          =>  ['nick']
     ];
 }
