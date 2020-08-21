@@ -191,4 +191,171 @@
 }
 ```
 
+# addNote
+    use: 添加笔记
+    method: POST
+    path: servername/api/note/add
+    param:
+        text: 笔记内容，可为空
+        group: 笔记分组，可为空，默认为default
 
+- 添加成功
+```json
+{
+    "status": 0,
+    "message": "添加成功",
+    "data": {
+        "note_id": "5"
+    }
+}
+```
+
+# deleteNote
+    use: 删除笔记
+    method: POST
+    path: servername/api/note/delete
+    param:
+        id: 笔记id
+- 删除成功
+```json
+{
+    "status": 0,
+    "message": "删除成功",
+    "data": []
+}
+```
+
+- id不存在
+```json
+{
+    "status": -1,
+    "message": "id不存在",
+    "data": []
+}
+```
+
+# editText
+    use: 编辑笔记
+    method: POST
+    path: servername/api/note/edit
+    param:
+        id: 笔记id
+        text: 笔记内容，可为空
+- 更新成功
+```json
+{
+    "status": 0,
+    "message": "更新成功",
+    "data": 1
+}
+```
+
+# editGroup
+    use: 编辑笔记分组
+    method: POST
+    path: servername/api/note/group
+    param:
+        id: 笔记id
+        group: 笔记分组，可为空，默认为default
+   
+- 更新成功 
+```json
+{
+    "status": 0,
+    "message": "更新成功",
+    "data": 1
+}
+```
+- 未更新
+```json
+{
+    "status": -1,
+    "message": "未更新",
+    "data": 0
+}
+```
+
+# getNote
+    use: 获取笔记
+    method: POST
+    path: servername/api/note/getNote
+    param:
+        id: 笔记id
+
+- 获取成功
+```json
+{
+    "status": 0,
+    "message": "查找成功",
+    "data": {
+        "id": 6,
+        "text": "# markdow\n## markdown\n### markdown\n\n",
+        "user_id": 3,
+        "create_time": "2020-08-21 13:53:27",
+        "update_time": "2020-08-21 13:57:25",
+        "group": "12"
+    }
+}
+```
+- 获取失败
+```json
+{
+    "status": 0,
+    "message": "查找失败",
+    "data": []
+}
+```
+
+# getGroups
+    use: 获取用户笔记分组
+    method: POST
+    path: servername/api/note/getGroups
+    param:
+        user_id: 用户id
+
+- 获取成功    
+```json
+{
+    "status": 0,
+    "message": "查询成功",
+    "data": [
+        "12",
+        "default"
+    ]
+}
+```
+
+# getAllNotes
+    use: 获取用户所有笔记
+    method: POST
+    path: servername/api/note/getNotesByUserID
+    param:
+        user_id: 用户id
+- 获取成功
+```json
+{
+    "status": 0,
+    "message": "查询成功",
+    "data": {
+        "12": [
+            {
+                "id": 6,
+                "create_time": "2020-08-21 13:53:27",
+                "update_time": "2020-08-21 13:57:25"
+            }
+        ],
+        "default": [
+            {
+                "id": 7,
+                "create_time": "2020-08-21 14:02:14",
+                "update_time": "2020-08-21 14:02:14"
+            },
+            {
+                "id": 8,
+                "create_time": "2020-08-21 14:03:02",
+                "update_time": "2020-08-21 14:03:02"
+            }
+        ]
+    }
+}
+```

@@ -25,5 +25,13 @@ Route::rule('api/user/editNick', 'api/User/editUserNick')->allowCrossDomain();
 
 Route::rule('api/md2html', 'api/parser/md2html')->allowCrossDomain();
 
+Route::rule('api/note/add', 'api/Note/createNote')->allowCrossDomain();
+Route::rule('api/note/delete', 'api/Note/deleteNote')->allowCrossDomain();
+Route::rule('api/note/edit', 'api/Note/editText')->allowCrossDomain();
+Route::rule('api/note/group', 'api/Note/editGroup')->allowCrossDomain();
+Route::rule('api/note/getNotesByUserID', 'api/Note/getNoteByUserID')->allowCrossDomain();
+Route::rule('api/note/getNote', 'api/Note/getNote')->allowCrossDomain();
+Route::rule('api/note/getGroups', 'api/Note/getGroups')->allowCrossDomain();
+
 return [
 ];
