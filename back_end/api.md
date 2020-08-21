@@ -198,6 +198,7 @@
     param:
         text: 笔记内容，可为空
         group: 笔记分组，可为空，默认为default
+        title: 笔记标题，不可为空
 
 - 添加成功
 ```json
@@ -288,12 +289,13 @@
     "status": 0,
     "message": "查找成功",
     "data": {
-        "id": 6,
+        "id": 9,
+        "title": "title",
         "text": "# markdow\n## markdown\n### markdown\n\n",
         "user_id": 3,
-        "create_time": "2020-08-21 13:53:27",
-        "update_time": "2020-08-21 13:57:25",
-        "group": "12"
+        "create_time": "2020-08-21 16:10:12",
+        "update_time": "2020-08-21 16:10:12",
+        "group": "default"
     }
 }
 ```
@@ -340,6 +342,7 @@
         "12": [
             {
                 "id": 6,
+                "title": "",
                 "create_time": "2020-08-21 13:53:27",
                 "update_time": "2020-08-21 13:57:25"
             }
@@ -347,13 +350,21 @@
         "default": [
             {
                 "id": 7,
+                "title": "",
                 "create_time": "2020-08-21 14:02:14",
                 "update_time": "2020-08-21 14:02:14"
             },
             {
                 "id": 8,
+                "title": "",
                 "create_time": "2020-08-21 14:03:02",
                 "update_time": "2020-08-21 14:03:02"
+            },
+            {
+                "id": 9,
+                "title": "title",
+                "create_time": "2020-08-21 16:10:12",
+                "update_time": "2020-08-21 16:10:12"
             }
         ]
     }

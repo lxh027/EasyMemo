@@ -68,7 +68,7 @@ class NoteModel extends  Model
     {
         try {
             $where = ['user_id' => $user_id];
-            $info = $this->where($where)->field(['id', 'create_time', 'update_time', 'group'])->select();
+            $info = $this->where($where)->field(['id', 'title', 'create_time', 'update_time', 'group'])->select();
             $data = array();
             foreach ($info as $note) {
                 if (!isset($data[$note['group']])) {
@@ -76,6 +76,7 @@ class NoteModel extends  Model
                 }
                 $note_val = [
                     'id'    => $note['id'],
+                    'title' =>$note['title'],
                     'create_time'   => $note['create_time'],
                     'update_time'   => $note['update_time']
                 ];

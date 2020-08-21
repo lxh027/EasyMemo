@@ -28,6 +28,7 @@ class Note extends Base
 
         $data = [
             'text'      => $req['text'],
+            'title'     => $req['title'],
             'group'     => $req['group'],
             'user_id'   => Session::get('user_id'),
             'create_time'   => date('Y-m-d H:i:s'),
