@@ -81,6 +81,20 @@ class UserModel extends Model
         }
     }
 
+    public function getUserInfoByID($id)
+    {
+        try {
+            $res = $this->where(['id' => $id])->find();
+            if ($res) {
+                return ['code' => CODE_SUCCESS, 'msg' => '查找成功', 'data' => $res];
+            } else {
+                return ['code' => CODE_ERROR, 'msg' => '查找失败', 'data' => []];
+            }
+        } catch (DbException $e) {
+            return ['code' => CODE_ERROR, 'msg' => '数据库异常', 'data' => $e->getMessage()];
+        }
+    }
+
     public function editUserNick($id, $nick)
     {
         try {

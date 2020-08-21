@@ -82,7 +82,11 @@ class NoteModel extends  Model
                 ];
                 array_push($data[$note['group']], $note_val);
             }
-            return ['code' => CODE_SUCCESS, 'msg' => '查询成功', 'data' => $data];
+            $returnData = [
+                'user_id'   =>  $user_id,
+                'notes'     =>  $data
+            ];
+            return ['code' => CODE_SUCCESS, 'msg' => '查询成功', 'data' => $returnData];
         } catch (DbException $e) {
             return ['code' => CODE_ERROR, 'msg' => '数据库异常', 'data' => $e->getMessage()];
         }

@@ -191,6 +191,28 @@
 }
 ```
 
+# getUserInfoByID
+    use: 获取用户信息
+    method: POST
+    path: servername/api/user/getUser
+    param:
+        id: 用户ID|require
+
+```json
+{
+    "status": 0,
+    "message": "查找成功",
+    "data": {
+        "id": 3,
+        "username": "admin",
+        "password": "823b5817cadd75bb4809a539ff68a5d3",
+        "nick": "lxh001",
+        "email": "992874705@qq.com",
+        "contact": ""
+    }
+}
+```
+
 # addNote
     use: 添加笔记
     method: POST
@@ -339,34 +361,37 @@
     "status": 0,
     "message": "查询成功",
     "data": {
-        "12": [
-            {
-                "id": 6,
-                "title": "",
-                "create_time": "2020-08-21 13:53:27",
-                "update_time": "2020-08-21 13:57:25"
-            }
-        ],
-        "default": [
-            {
-                "id": 7,
-                "title": "",
-                "create_time": "2020-08-21 14:02:14",
-                "update_time": "2020-08-21 14:02:14"
-            },
-            {
-                "id": 8,
-                "title": "",
-                "create_time": "2020-08-21 14:03:02",
-                "update_time": "2020-08-21 14:03:02"
-            },
-            {
-                "id": 9,
-                "title": "title",
-                "create_time": "2020-08-21 16:10:12",
-                "update_time": "2020-08-21 16:10:12"
-            }
-        ]
+        "user_id": "3",
+        "notes": {
+            "12": [
+                {
+                    "id": 6,
+                    "title": "",
+                    "create_time": "2020-08-21 13:53:27",
+                    "update_time": "2020-08-21 13:57:25"
+                }
+            ],
+            "default": [
+                {
+                    "id": 7,
+                    "title": "",
+                    "create_time": "2020-08-21 14:02:14",
+                    "update_time": "2020-08-21 14:02:14"
+                },
+                {
+                    "id": 8,
+                    "title": "",
+                    "create_time": "2020-08-21 14:03:02",
+                    "update_time": "2020-08-21 14:03:02"
+                },
+                {
+                    "id": 9,
+                    "title": "title",
+                    "create_time": "2020-08-21 16:10:12",
+                    "update_time": "2020-08-21 16:10:12"
+                }
+            ]
+        }
     }
 }
 ```

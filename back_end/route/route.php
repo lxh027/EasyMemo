@@ -22,6 +22,7 @@ Route::rule('api/logout', 'api/login/logout')->allowCrossDomain();
 
 Route::rule('api/user/find', 'api/User/getUserInfo')->allowCrossDomain();
 Route::rule('api/user/editNick', 'api/User/editUserNick')->allowCrossDomain();
+Route::rule('api/user/getUser', 'api/User/getUserInfoByID')->allowCrossDomain();
 
 Route::rule('api/md2html', 'api/parser/md2html')->allowCrossDomain();
 

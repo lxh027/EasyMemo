@@ -12,7 +12,8 @@ class UserValidate extends Validate
         'password'  => 'require|length:6,16',
         'old_password' => 'require|length:6,16',
         'password_check' => 'require|length:6,16',
-        'email'     => 'require|email'
+        'email'     => 'require|email',
+        'id'        => 'require'
     ];
 
     protected $message = [
@@ -27,7 +28,8 @@ class UserValidate extends Validate
         'password_check.require'  => '缺少确认密码',
         'password_check.length'   => '密码长度不正确',
         'email.require'     =>  '缺少邮箱',
-        'email.email'       =>  '邮箱格式不正确'
+        'email.email'       =>  '邮箱格式不正确',
+        'id.require'        =>  '缺少用户id'
     ];
 
     protected $scene = [
@@ -35,6 +37,7 @@ class UserValidate extends Validate
         'login'         =>  ['username', 'password'],
         'forget_password'   =>  ['username', 'email', 'password', 'password_check'],
         'search'        =>  ['username'],
-        'edit_nick'          =>  ['nick']
+        'edit_nick'          =>  ['nick'],
+        'getUser'       =>  ['id']
     ];
 }

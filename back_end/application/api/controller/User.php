@@ -24,6 +24,21 @@ class User extends Base
         return apiReturn($resp['code'], $resp['msg'], $resp['data']);
     }
 
+    public function getUserInfoByID()
+    {
+        $userValidate = new UserValidate();
+        $userModel = new UserModel();
+
+        $req = input('post.');
+        $res = $userValidate->scene('getUser')->check($req);
+        if ($res != VALIDATE_PASS) {
+            return apiReturn(CODE_ERROR, $userValidate->getError(), '');
+        }
+
+        $resp = $userModel->getUserInfoByID($req['id']);
+        return apiReturn($resp['code'], $resp['msg'], $resp['data']);
+    }
+
     public function editUserNick()
     {
         $userValidate = new UserValidate();
