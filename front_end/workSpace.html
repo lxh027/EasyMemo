@@ -141,22 +141,23 @@
       let username=null
       $(function(){
         $.ajax({
-          url:"http://www.lxh001.top:5000/back_end/public/api/user/find",
+          url:"http://easymemo.test/back_end/public/api/user/find",
           data:{},
           type:'post',
           success:function(data){
             username=data.data.username
             userid=data.data.id
             alert(username+userid)
+            document.getElementById("username").innerHTML=username+","+" 您好！"
+            alert(username)
           }
         })
       })
+      
       // window.alert(name)
-      document.getElementById("username").innerHTML=username+","+" 您好！"
-      alert(username)
       // 读取服务端所有笔记名字并且添加到左侧列表中
       $.ajax({
-        url:"http://www.lxh001.top:5000/back_end/public/api/note/getNotesByUserID",
+        url:"http://easymemo.test/back_end/public/api/note/getNotesByUserID",
         data:{"user_id":userid},//发送userid请求所有笔记名字
         type: 'post',
         success:function(data){
@@ -191,7 +192,7 @@
     // 5、设置html到右侧
     function clickNote(){
       $.ajax({
-        url:"http://www.lxh001.top:5000/back_end/public/api/note/getNote",
+        url:"http://easymemo.test/back_end/public/api/note/getNote",
         data:{"id":$(this.attr('id'))},//获取笔记id
         type: 'post',
         dataType: 'json',
