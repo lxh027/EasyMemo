@@ -76,7 +76,7 @@
       function loginClick() {
 
         $.ajax({
-          url:"http://lxh001.top/back_end/public/api/login/login",
+          url:"http://lxh001.top:5000/back_end/public/api/login/login",
           data:{"username":$("#login-username").val(),"password":$("#login-password").val()},
           type: 'post',
           dataType: 'json',
