@@ -51,7 +51,7 @@
               <div class="form-group text-center"><a id="login" href="#" class="btn btn-primary" onclick="loginClick()">Login</a>
                 <!-- This should be submit button but I replaced it with <a> for demo purposes-->
               </div>
-            </form><a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
+            </form><a href="#" onclick="forgetPasswordClick()" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
           </div>
           <div class="copyrights text-center">
             
@@ -77,18 +77,30 @@
 
         $.ajax({
           url:"http://www.lxh001.top:5000/back_end/public/api/login/login",
+          data:{"username":$("#login-username").val(),"password":$("#login-password").val()},
           type: 'post',
           dataType: 'json',
-          data: {
-            "username": $("#login-username").val(),
-            'password': $("#login-password").val()
-          },
+          crossDomain: true,
           success:function(data){
+            window.alert(data.data.username)
             console.log(data)
+            username=data.data.username
+            userid=data.data.user_id
+            // userID=data["user_id"]//userID设置为全局变量 传到下一个网页
+
+            let nextUrl="workSpace.html"
+            alert(nextUrl)
+            window.location.href=nextUrl
+
           }
-        });
-        var name=$("login-username").val()//用户名
-        var password=$("login-password").val()//用户密码
+        })
+
+
+        //发给服务器
+      }
+      function forgetPasswordClick() {
+        let username=$("#login-username").val()
+        window.location.href="forgetPassword.html?"+"username="+username
 
 
         //发给服务器

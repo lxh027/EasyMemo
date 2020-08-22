@@ -88,7 +88,7 @@
       float:left;
       clear:right;
       height:100vh;;
-      background-color:whight;
+      background-color:white;
     }
     .notes_button{
       border: 1px solid #656565;
@@ -112,29 +112,150 @@
     #right_text{
       background-color: white;
     }
+    #myModal{
+      float: left;
+    }
 
   </style>
-<body>
-<div class="top">
-  <center>
-    <ul>
-      <li><a href="#">EasyMomo</a></li>
-      <li><a href="#">笔记</a></li>
-      <li><a href="#">搜索</a></li>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/bootstrap.js"></script>
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-      <li>
-        <a href="#">个人中心</a>
-        <ul>
-          <li><a href="#">修改密码</a></li>
-          <li><a href="#">退出账号</a></li>
-        </ul>
-      </li>
-    </ul>
-  </center>
-</div>
+
+  <script>
+
+    function getUrlParam(name) {//封装方法
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      if (r != null) return unescape(r[2]);
+      return null; //返回参数值
+    }
+
+    // const name = getUrlParam('username');
+
+    window.onload = function(){
+      let userid=null
+      let username=null
+      $(function(){
+        $.ajax({
+          url:"http://www.lxh001.top:5000/back_end/public/api/user/find",
+          data:{},
+          type:'post',
+          success:function(data){
+            username=data.data.username
+            userid=data.data.id
+            alert(username+userid)
+          }
+        })
+      })
+      // window.alert(name)
+      document.getElementById("username").innerHTML=username+","+" 您好！"
+      alert(username)
+      // 读取服务端所有笔记名字并且添加到左侧列表中
+      $.ajax({
+        url:"http://www.lxh001.top:5000/back_end/public/api/note/getNotesByUserID",
+        data:{"user_id":userid},//发送userid请求所有笔记名字
+        type: 'post',
+        success:function(data){
+          if(data.status==0)//如果查找成功
+          {
+            for(let i=0;i<data.data["notes"]["default"].length;i++)//data里面包含了笔记的
+            {
+              let note=data["notes"]["default"][i]
+              let noteTitle=note['title']
+              let noteId=note['id']
+              // var str = "<label>选择权限</label>\n";//sample例子
+              // str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='is_core' /> is_core </label>\n";
+              // for (var i = 0; i<knowledge.length; i++) {
+              //   str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='" + knowledge[i]['name'] + "' />" + knowledge[i]['name'] + "   </label>\n";
+              // }
+              // $("#checkboxes").html(str);
+            // <div><button class="notes_button"><a class="notes" id="notes1" href="">笔记1</a></button></div>  标准格式
+              str1="<div><button class='notes_button'><a class=notes id='"+noteId+"' href='' onclick='clickNote()'>"+noteTitle+"</a></button></div>"
+              $("#saveToPC").after(str1)
+            }
+          }
+
+        }
+      })
+    }
+  </script>
+  <script>
+    // 1、得到点击笔记的标签
+    // 2、得到点击笔记的text
+    // 3、设置text到左侧
+    // 4、得到点击笔记的html
+    // 5、设置html到右侧
+    function clickNote(){
+      $.ajax({
+        url:"http://www.lxh001.top:5000/back_end/public/api/note/getNote",
+        data:{"id":$(this.attr('id'))},//获取笔记id
+        type: 'post',
+        dataType: 'json',
+        crossDomain: true,
+        success:function(data){
+          //当用户点击左侧笔记名字的时候 设置当前笔记界面为用户点击的笔记
+          thisNote=data.data
+          leftText=thisNote['text']//得到了markdown原文 准备发送给后端解析
+          $("#left_text").text(leftText)
+
+        }
+      })
+      $.ajax({
+        url:"http://www.lxh001.top:5000/back_end/public/api/md2html",
+        data:{"text":leftText},//获取笔记id
+        type: 'post',
+        dataType: 'json',
+        crossDomain: true,
+        success:function(data){
+          //设置存放markdown区域的文本域的value
+          rightText=data.data.html
+          $("#right_text").html(rightText)
+
+
+        }
+      })
+    }
+  </script>
+
+</head>
+<body>
+
+  <div class="top">
+    <center>
+      <ul>
+        <li><a href="#">EasyMomo</a></li>
+        <li><a href="#">笔记</a></li>
+        <li><a href="#">搜索</a></li>
+
+        <li>
+          <a href="#">个人中心</a>
+          <ul>
+            <li><a href="#" id="modify">修改密码</a></li>
+            <li><a href="#">退出账号</a></li>
+            <li><a href="#" id="username">默认</a></li>
+          </ul>
+        </li>
+      </ul>
+    </center>
+  </div>
 
 <div id="left">
-  <div><button class="notes_button"><a class="notes" id="add_notes" href="">添加笔记</a></button></div>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    添加笔记
+  </button>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" >
+    保存笔记到云端
+  </button>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" >
+    删除当前页笔记
+  </button>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" id="saveToPC">
+    保存笔记到本地
+  </button>
   <div><button class="notes_button"><a class="notes" id="notes1" href="">笔记1</a></button></div>
   <div><button class="notes_button"><a class="notes" id="notes2" href="">笔记2</a></button></div>
   <div><button class="notes_button"><a class="notes" id="notes3" href="">笔记3</a></button></div>
@@ -145,7 +266,27 @@
 <div id="right">
   <textarea name="" id="right_text" cols="30" rows="10"></textarea>
 </div>
+<!--  弹出窗口 用来选择新建笔记的信息-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">添加笔记界面</h4>
+        </div>
+        <div class="modal-body">
+          <labal for="newNoteName">笔记名字:</labal>
+          <input type="text" id="newNoteName" autofocus placeholder="新笔记1">
 
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">提交更改</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
 </body>
-</head>
+
 </html>
