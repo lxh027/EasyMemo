@@ -141,7 +141,7 @@
       let username=null
       $(function(){
         $.ajax({
-          url:"http://easymemo.test/back_end/public/api/user/find",
+          url:"http://lxh001.top:5000/back_end/public/api/user/find",
           data:{},
           type:'post',
           success:function(data){
@@ -157,7 +157,7 @@
       // window.alert(name)
       // 读取服务端所有笔记名字并且添加到左侧列表中
       $.ajax({
-        url:"http://easymemo.test/back_end/public/api/note/getNotesByUserID",
+        url:"http://lxh001.top:5000/back_end/public/api/note/getNotesByUserID",
         data:{"user_id":userid},//发送userid请求所有笔记名字
         type: 'post',
         success:function(data){
@@ -192,7 +192,7 @@
     // 5、设置html到右侧
     function clickNote(){
       $.ajax({
-        url:"http://easymemo.test/back_end/public/api/note/getNote",
+        url:"http://lxh001.top:5000/back_end/public/api/note/getNote",
         data:{"id":$(this.attr('id'))},//获取笔记id
         type: 'post',
         dataType: 'json',
