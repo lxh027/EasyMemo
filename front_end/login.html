@@ -80,7 +80,6 @@
           data:{"username":$("#login-username").val(),"password":$("#login-password").val()},
           type: 'post',
           dataType: 'json',
-          crossDomain: true,
           success:function(data){
             window.alert(data.data.username)
             console.log(data)
