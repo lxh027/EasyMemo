@@ -245,7 +245,23 @@
 </div>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="config.js"></script>
 <script>
+  var port = getPort();
+      $(document).ready(function() {
+        $.ajax({
+          url: port+"login/check_login",
+          data: {},
+          type: 'post',
+          dataType: 'json',
+          success: function(data) {
+            if (data.status == 0)  {
+              window.alert(data.message);
+              window.location.href = "workSpace.html";
+            }
+          }
+        })
+      });
   $('#submit').click(function () {
     $.ajax({
       url: "http://www.lxh001.top:5000/back_end/public/api/register",

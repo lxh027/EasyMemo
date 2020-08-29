@@ -1,121 +1,149 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <style type="text/css">
-    .top{
+    .top {
       /* 设置宽度高度背景颜色 */
-      height: auto; /*高度改为自动高度*/
-      width:100%;
+      height: auto;
+      /*高度改为自动高度*/
+      width: 100%;
       margin-left: 0;
-      background:rgb(189, 181, 181);
-      position: fixed; /*固定在顶部*/
-      top: 0;/*离顶部的距离为0*/
+      background: rgb(189, 181, 181);
+      position: fixed;
+      /*固定在顶部*/
+      top: 0;
+      /*离顶部的距离为0*/
       margin-bottom: 5px;
     }
-    .top ul{
+
+    .top ul {
       /* 清除ul标签的默认样式 */
-      width: auto;/*宽度也改为自动*/
+      width: auto;
+      /*宽度也改为自动*/
       list-style-type: none;
-      white-space:nowrap;
+      white-space: nowrap;
       overflow: hidden;
       margin-left: 5%;
       /* margin-top: 0;          */
       padding: 0;
 
     }
+
     .top li {
-      float:left; /* 使li内容横向浮动，即横向排列  */
-      margin-right:2%;  /* 两个li之间的距离*/
+      float: left;
+      /* 使li内容横向浮动，即横向排列  */
+      margin-right: 2%;
+      /* 两个li之间的距离*/
       position: relative;
       overflow: hidden;
     }
 
-    .top li a{
+    .top li a {
       /* 设置链接内容显示的格式*/
-      display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
-      color:white;
+      display: block;
+      /* 把链接显示为块元素可使整个链接区域可点击 */
+      color: white;
       text-align: center;
       padding: 3px;
       overflow: hidden;
-      text-decoration: none; /* 去除下划线 */
+      text-decoration: none;
+      /* 去除下划线 */
 
     }
-    .top li a:hover{
+
+    .top li a:hover {
       /* 鼠标选中时背景变为黑色 */
       background-color: #111;
     }
-    .top ul li ul{
+
+    .top ul li ul {
       /* 设置二级菜单 */
       margin-left: -0.2px;
-      background:rgb(189, 181, 181);
+      background: rgb(189, 181, 181);
       position: relative;
-      display: none; /* 默认隐藏二级菜单的内容 */
+      display: none;
+      /* 默认隐藏二级菜单的内容 */
 
     }
-    .top ul li ul li{
+
+    .top ul li ul li {
       /* 二级菜单li内容的显示 */
 
-      float:none;
+      float: none;
       text-align: center;
     }
-    .top ul li:hover ul{
+
+    .top ul li:hover ul {
       /* 鼠标选中二级菜单内容时 */
       display: block;
     }
-    body{
-      background:#eff3f5;
+
+    body {
+      background: #eff3f5;
       height: 5000px;
     }
+
     #left {
-      margin-top:50px;
-      width:20%;
+      margin-top: 50px;
+      width: 20%;
       float: left;
-      clear:right;
-      height:100vh;
-      background-color:#323232;
+      clear: right;
+      height: 100vh;
+      background-color: #323232;
     }
-    #mid{
-      margin-top:50px;
-      width:40%;
-      float:left;
-      clear:right;
-      height:100vh;;
-      background-color:#CBCDCD;
+
+    #mid {
+      margin-top: 50px;
+      width: 40%;
+      float: left;
+      clear: right;
+      height: 100vh;
+      ;
+      background-color: #CBCDCD;
     }
-    #right{
-      margin-top:50px;
-      width:40%;
-      float:left;
-      clear:right;
-      height:100vh;;
-      background-color:white;
+
+    #right {
+      margin-top: 50px;
+      width: 40%;
+      float: left;
+      clear: right;
+      height: 100vh;
+      ;
+      background-color: white;
     }
-    .notes_button{
+
+    .notes_button {
       border: 1px solid #656565;
       background-color: #323232;
       height: 50px;
       width: 100%;
+      color: antiquewhite;
+    }
 
-    }
-    .notes{
+    .notes {
       color: #B6B7B8;
-      text-decoration:none;
+      text-decoration: none;
     }
-    #left_text,#right_text{
+
+    #left_text,
+    #right_text {
       padding-top: 0px;
       width: 100vh;
       height: 100vh;
     }
-    #left_text{
+
+    #left_text {
       background-color: #CBCDCD;
     }
-    #right_text{
+
+    #right_text {
       background-color: white;
     }
-    #myModal{
+
+    #myModal {
       float: left;
     }
-
   </style>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -123,106 +151,10 @@
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-  <script>
-
-    function getUrlParam(name) {//封装方法
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-      var r = window.location.search.substr(1).match(reg); //匹配目标参数
-      if (r != null) return unescape(r[2]);
-      return null; //返回参数值
-    }
-
-    // const name = getUrlParam('username');
-
-    window.onload = function(){
-      let userid=null
-      let username=null
-      $(function(){
-        $.ajax({
-          url:"http://lxh001.top:5000/back_end/public/api/user/find",
-          data:{},
-          type:'post',
-          success:function(data){
-            username=data.data.username
-            userid=data.data.id
-            alert(username+userid)
-            document.getElementById("username").innerHTML=username+","+" 您好！"
-            alert(username)
-          }
-        })
-      })
-      
-      // window.alert(name)
-      // 读取服务端所有笔记名字并且添加到左侧列表中
-      $.ajax({
-        url:"http://lxh001.top:5000/back_end/public/api/note/getNotesByUserID",
-        data:{"user_id":userid},//发送userid请求所有笔记名字
-        type: 'post',
-        success:function(data){
-          if(data.status==0)//如果查找成功
-          {
-            for(let i=0;i<data.data["notes"]["default"].length;i++)//data里面包含了笔记的
-            {
-              let note=data["notes"]["default"][i]
-              let noteTitle=note['title']
-              let noteId=note['id']
-              // var str = "<label>选择权限</label>\n";//sample例子
-              // str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='is_core' /> is_core </label>\n";
-              // for (var i = 0; i<knowledge.length; i++) {
-              //   str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='" + knowledge[i]['name'] + "' />" + knowledge[i]['name'] + "   </label>\n";
-              // }
-              // $("#checkboxes").html(str);
-            // <div><button class="notes_button"><a class="notes" id="notes1" href="">笔记1</a></button></div>  标准格式
-              str1="<div><button class='notes_button'><a class=notes id='"+noteId+"' href='' onclick='clickNote()'>"+noteTitle+"</a></button></div>"
-              $("#saveToPC").after(str1)
-            }
-          }
-
-        }
-      })
-    }
-  </script>
-  <script>
-    // 1、得到点击笔记的标签
-    // 2、得到点击笔记的text
-    // 3、设置text到左侧
-    // 4、得到点击笔记的html
-    // 5、设置html到右侧
-    function clickNote(){
-      $.ajax({
-        url:"http://lxh001.top:5000/back_end/public/api/note/getNote",
-        data:{"id":$(this.attr('id'))},//获取笔记id
-        type: 'post',
-        dataType: 'json',
-        crossDomain: true,
-        success:function(data){
-          //当用户点击左侧笔记名字的时候 设置当前笔记界面为用户点击的笔记
-          thisNote=data.data
-          leftText=thisNote['text']//得到了markdown原文 准备发送给后端解析
-          $("#left_text").text(leftText)
-
-        }
-      })
-      $.ajax({
-        url:"http://www.lxh001.top:5000/back_end/public/api/md2html",
-        data:{"text":leftText},//获取笔记id
-        type: 'post',
-        dataType: 'json',
-        crossDomain: true,
-        success:function(data){
-          //设置存放markdown区域的文本域的value
-          rightText=data.data.html
-          $("#right_text").html(rightText)
-
-
-        }
-      })
-    }
-  </script>
+  <script src="config.js"></script>
 
 </head>
+
 <body>
 
   <div class="top">
@@ -235,8 +167,8 @@
         <li>
           <a href="#">个人中心</a>
           <ul>
-            <li><a href="#" id="modify">修改密码</a></li>
-            <li><a href="#">退出账号</a></li>
+            <li><a href="modifyPassword.html" id="modify">修改密码</a></li>
+            <li><a href="#" id="logout">退出账号</a></li>
             <li><a href="#" id="username">默认</a></li>
           </ul>
         </li>
@@ -244,30 +176,30 @@
     </center>
   </div>
 
-<div id="left">
-  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    添加笔记
-  </button>
-  <button class="btn btn-primary btn-lg" data-toggle="modal" >
-    保存笔记到云端
-  </button>
-  <button class="btn btn-primary btn-lg" data-toggle="modal" >
-    删除当前页笔记
-  </button>
-  <button class="btn btn-primary btn-lg" data-toggle="modal" id="saveToPC">
-    保存笔记到本地
-  </button>
-  <div><button class="notes_button"><a class="notes" id="notes1" href="">笔记1</a></button></div>
-  <div><button class="notes_button"><a class="notes" id="notes2" href="">笔记2</a></button></div>
-  <div><button class="notes_button"><a class="notes" id="notes3" href="">笔记3</a></button></div>
-</div>
-<div id="mid">
-  <textarea name="" id="left_text" cols="30" rows="10"></textarea>
-</div>
-<div id="right">
-  <textarea name="" id="right_text" cols="30" rows="10"></textarea>
-</div>
-<!--  弹出窗口 用来选择新建笔记的信息-->
+  <div id="left">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      添加笔记
+    </button>
+    <button class="btn btn-primary btn-lg" data-toggle="modal">
+      保存笔记到云端
+    </button>
+    <button class="btn btn-primary btn-lg" data-toggle="modal">
+      删除当前页笔记
+    </button>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" id="saveToPC">
+      保存笔记到本地
+    </button>
+    <div id="notes">
+
+    </div>
+  </div>
+  <div id="mid">
+    <textarea name="" id="left_text" cols="30" rows="10"></textarea>
+  </div>
+  <div id="right">
+    <textarea name="" id="right_text" cols="30" rows="10"></textarea>
+  </div>
+  <!--  弹出窗口 用来选择新建笔记的信息-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -289,5 +221,114 @@
     </div><!-- /.modal -->
   </div>
 </body>
+
+
+<script>
+  // const name = getUrlParam('username');
+  var port = getPort();
+  var user_id;
+
+
+  $(document).ready(function () {
+    $.ajax({
+      url: port + "login/check_login",
+      data: {},
+      type: 'post',
+      dataType: 'json',
+      async: false,
+      success: function (data) {
+        if (data.status == -1) {
+          window.alert(data.message);
+          window.location.href = "login.html";
+        }
+      }
+    }).done(function () {
+      $.ajax({
+        url: port + "user/find",
+        data: {},
+        type: 'post',
+        async: false,
+        success: function (data) {
+          var username = data.data.username;
+          user_id = data.data.id;
+          document.getElementById("username").innerHTML = username + "," + " 您好！";
+        }
+      })
+    }).done(function () {
+      $.ajax({
+        url: port + "note/getNotesByUserID",
+        data: {
+          "user_id": user_id
+        },//发送userid请求所有笔记名字
+        dataType: 'json',
+        type: 'post',
+        async: false,
+        success: function (data) {
+          if (data.status == 0)//如果查找成功
+          {
+            cont = "";
+            for (let i in data.data.notes)//data里面包含了笔记的
+            {
+              let note = data.data.notes[i];
+              for (let id in data.data.notes[i]) {
+                let noteTitle = note[id]['title'];
+                let noteId = note[id]['id'];
+                // var str = "<label>选择权限</label>\n";//sample例子
+                // str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='is_core' /> is_core </label>\n";
+                // for (var i = 0; i<knowledge.length; i++) {
+                //   str += "<label class='checkbox-inline'> <input type='checkbox' name='checkbox' value='" + knowledge[i]['name'] + "' />" + knowledge[i]['name'] + "   </label>\n";
+                // }
+                // $("#checkboxes").html(str);
+                // <div><button class="notes_button"><a class="notes" id="notes1" href="">笔记1</a></button></div>  标准格式
+                str1 = "<button type='button' class='notes_button' id="+noteId+" onclick='clickNote("+noteId+")'>"+noteTitle+"</button>";
+                cont += str1;
+              }
+            }
+            $('#notes').html(cont);
+          }
+
+        }
+      })
+    })
+  });
+
+  // 1、得到点击笔记的标签
+  // 2、得到点击笔记的text
+  // 3、设置text到左侧
+  // 4、得到点击笔记的html
+  // 5、设置html到右侧
+  var text_id = 0;
+  function clickNote(id) {
+    text_id = id;
+    $.ajax({
+      url: port + "note/getNote",
+      data: { "id": id },//获取笔记id
+      type: 'post',
+      dataType: 'json',
+      success: function (data) {
+        //当用户点击左侧笔记名字的时候 设置当前笔记界面为用户点击的笔记
+        thisNote = data.data
+        leftText = thisNote['text']//得到了markdown原文 准备发送给后端解析
+        $("#left_text").text(leftText)
+
+      }
+    })
+  }
+
+  $('#logout').click(function() {
+    $.ajax({
+      url: port + "logout",
+      data: {},
+      type: 'post',
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 0) {
+          window.location.href = "login.html"
+        }
+      }
+    });
+  });
+
+</script>
 
 </html>

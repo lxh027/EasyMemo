@@ -71,24 +71,34 @@
     <script src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Main File-->
     <script src="js/front.js"></script>
+    <script src="config.js"></script>
     <--Ajax by lgc ------------------------------------------------------------------------------------------------>
     <script>
+      var port = getPort();
+      $(document).ready(function() {
+        $.ajax({
+          url: port+"login/check_login",
+          data: {},
+          type: 'post',
+          dataType: 'json',
+          success: function(data) {
+            if (data.status == 0)  {
+              window.alert(data.message);
+              window.location.href = "workSpace.html";
+            }
+          }
+        })
+      });
       function loginClick() {
 
         $.ajax({
-          url:"http://lxh001.top:5000/back_end/public/api/login/login",
+          url: port+"login/login",
           data:{"username":$("#login-username").val(),"password":$("#login-password").val()},
           type: 'post',
           dataType: 'json',
           success:function(data){
-            window.alert(data.data.username)
-            console.log(data)
-            username=data.data.username
-            userid=data.data.user_id
-            // userID=data["user_id"]//userID设置为全局变量 传到下一个网页
-
+            
              let nextUrl="workSpace.html"
-             alert(nextUrl)
              window.location.href=nextUrl
 
           }
@@ -98,8 +108,7 @@
         //发给服务器
       }
       function forgetPasswordClick() {
-        let username=$("#login-username").val()
-        window.location.href="forgetPassword.html?"+"username="+username
+        window.location.href="forgetPassword.html"
 
 
         //发给服务器
