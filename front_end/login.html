@@ -97,9 +97,12 @@
           type: 'post',
           dataType: 'json',
           success:function(data){
-            
-             let nextUrl="workSpace.html"
+            alert(data.message);
+            if (data.status == 0) {
+              let nextUrl="workSpace.html"
              window.location.href=nextUrl
+            }
+             
 
           }
         })
