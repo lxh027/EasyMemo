@@ -19,7 +19,7 @@ class Note extends Base
             $req['group'] = 'default';
         }
         if (!isset($req['text'])) {
-            $req['text'] = '';
+            $req['text'] = '#'.$req['title'];
         }
         $res = $noteValidate->scene('add')->check($req);
         if ($res != VALIDATE_PASS) {
