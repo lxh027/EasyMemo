@@ -23,7 +23,7 @@ class Note extends Base
         }
         $res = $noteValidate->scene('add')->check($req);
         if ($res != VALIDATE_PASS) {
-            return apiReturn(CODE_ERROR, $noteValidate->getError(), '');
+            return apiReturn(CODE_ERROR, $noteValidate->getError(), $req);
         }
 
         $data = [
