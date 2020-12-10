@@ -25,7 +25,7 @@ class NoteValidate extends Validate
 
     protected $scene = [
         'add'      =>  ['title', 'text', 'group'],
-        'editText'         =>  ['id', 'text'],
+        'editText'         =>  ['id', 'text', 'title'],
         'editGroup'   =>  ['id', 'group'],
         'getUserText'        =>  ['user_id'],
         'delete'        => ['id'],
