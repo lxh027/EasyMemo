@@ -264,6 +264,7 @@
     param:
         id: 笔记id
         text: 笔记内容，可为空
+        title
 - 更新成功
 ```json
 {

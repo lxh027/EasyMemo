@@ -66,6 +66,7 @@ class Note extends Base
 
         $data = [
             'text'  => $req['text'],
+            'title' => $req['title'],
             'update_time'   => date('Y-m-d H:i:s')
         ];
         $resp = $noteModel->edit($req['id'], $data);
