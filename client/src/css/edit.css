@@ -1,0 +1,82 @@
+/*选择一个更新的CSS框模型，它将正确地设置元素的宽度和高度*/
+html {
+    box-sizing: border-box;
+}
+
+    /* 将此设置传递给页面上的所有其他元素和伪元素*/
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+    /* 在整个应用程序中使用操作系统的默认字体 */
+body, input {
+    font: menu;
+}
+
+    /*移除浏览器围绕活动输入字段的默认突出显示*/
+textarea, input, div, button {
+    outline: none;
+    margin: 0;
+}
+
+.edit-button {
+    background-color: #ff6600;
+}
+
+.footer {
+    background-color: #222020;
+    color: #FFFFFF;
+}
+
+.controls {
+    background-color: #222020;
+    padding: 10px 10px 10px 10px;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: relative;
+}
+
+/* 使用Flexbox对齐应用程序的两个窗格*/
+.content {
+    height: 650px;
+    display: flex;
+}
+
+/* 使用Flexbox将两个窗格设置为相同的宽度 */
+.raw-markdown, .markdown-body {
+    height: 100%;
+    max-width: 50%;
+    flex-grow: 1;
+    padding: 1em;
+    overflow: scroll;
+    font-size: 16px;
+}
+
+.markdown-body {
+    background-color: #ededed;
+}
+
+.raw-markdown {
+    border: 5px solid rgb(238, 252, 250);;
+    background-color: #d4d4d4;
+    font-family: monospace;
+}

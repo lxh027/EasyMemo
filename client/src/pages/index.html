@@ -1,0 +1,165 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EasyMemo</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<body class="no-select">
+    <div class="layui-container">
+        <div style="height: 10px">
+            <div class="main-button-return" id="logout">
+                <i class="layui-icon layui-icon-return" ></i>
+            </div>
+            <h1 style="color: #ff6600; font-family: 'Bauhaus 93',monospace; margin: 0 0 20px 185px">EasyMemo</h1>
+        </div>
+        <div class="layui-form">
+            <div class="layui-form-item" >
+                <div class="layui-inline" style="margin-left: 0; margin-top: 50px">
+                    <label for="new_title"></label>
+                    <div class="layui-input-inline" style="margin-left: 0;">
+                        <input class="layui-input main-input" type="text" id="new_title" placeholder="输入标题添加便笺">
+                    </div>
+                    <div class="layui-input-inline">
+                        <div class="layui-btn main-button" id="add_memo">添加</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row" id="memos">
+        </div>
+    </div>
+
+</body>
+
+<script src="../../config/config.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script>
+    const jquery = require('jquery')
+    const ipc = require('electron').ipcRenderer
+    let user_id = null
+    jquery(document).ready(() => {
+        jquery.ajax({
+            url: getPort()+"user/find",
+            type: "post",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                if (data.status == 0) {
+                    user_id = data.data.id
+                } else {
+                    layui.use(['layer'], () => {
+                        const layer = layui.layer;
+                        layer.msg(data.message);
+                    })
+                }
+            }
+        }).then(getMemoList)
+        ipc.on('load_index', () => {
+            getMemoList()
+        })
+    })
+
+    jquery("#add_memo").click(() => {
+        jquery.ajax({
+            url: getPort()+"note/add",
+            type: "post",
+            dataType: "json",
+            data: {
+                'title': jquery('#new_title').val(),
+            },
+            success: function (data) {
+                layui.use(['layer'], () => {
+                    const layer = layui.layer;
+                    layer.msg(data.message);
+                })
+            }
+        }).then(getMemoList)
+    })
+
+    jquery("#memos").on('click', '.card-title', (e) => {
+        const id = e.target.id
+        ipc.send('to_edit', id)
+    })
+
+    jquery("#memos").on('click', '.card-delete', (e) => {
+        let id = e.target.id.substring(6)
+        jquery.ajax({
+            url: getPort()+"note/delete",
+            type: "post",
+            dataType: "json",
+            data: {
+                'id': id,
+            },
+            success: function (data) {
+                layui.use(['layer'], () => {
+                    const layer = layui.layer;
+                    layer.msg(data.message);
+                })
+            }
+        }).then(getMemoList)
+    })
+
+
+    jquery("#logout").click(() => {
+        jquery.ajax({
+            url: getPort()+"logout",
+            type: "post",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                if (data.status == 0) {
+                    ipc.send('logout')
+                } else {
+                    layui.use(['layer'], () => {
+                        const layer = layui.layer;
+                        layer.msg(data.message);
+                    })
+                }
+            }
+        }).then(getMemoList)
+    })
+
+    function getMemoList() {
+        jquery.ajax({
+            url: getPort()+"note/getNotesByUserID",
+            type: "post",
+            dataType: "json",
+            data: {
+                'user_id': user_id
+            },
+            success: function (data) {
+                if (data.status == 0) {
+                    let content = ""
+                    if (data.data.notes.length !== 0) {
+                        const memos = data.data.notes.default;
+                        memos.forEach((memo) => {
+                            const card = `<div class="card">
+                                <div class="card-title" id="`+memo.id+`">
+                                    `+memo.title+`
+                                </div>
+                                <div class="card-delete">
+                                    <i class="layui-icon layui-icon-delete" id=delete`+memo.id+`></i>
+                                </div>
+                            </div>`
+                            content += card
+                        })
+                    }
+                    jquery("#memos").html(content)
+                } else {
+                    layui.use(['layer'], () => {
+                        const layer = layui.layer;
+                        layer.msg(data.message);
+                    })
+                }
+            }
+        })
+    }
+</script>
+
+</html>
+
+
+

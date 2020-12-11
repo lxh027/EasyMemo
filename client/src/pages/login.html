@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyMemo</title>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md12" style="height: 50px"></div>
+
+            <div class="layui-col-md12" id="header" style="text-align: center;">
+                <h1 style="color: #ff6600; font-family: 'Bauhaus 93',monospace">EasyMemo</h1>
+            </div>
+            <div class="layui-col-md12" style="height: 30px"></div>
+            <div class="layui-col-md12" id="body" >
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" for="username" >
+                            <i class="layui-icon layui-icon-username" style="color: white"></i>
+                        </label>
+                        <div class="layui-input-block" >
+                            <input class="layui-input" type="text" id="username" style="width: 250px;" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" for="password" >
+                            <i class="layui-icon layui-icon-password" style="color: white"></i>
+                        </label>
+                        <div class="layui-input-block" >
+                            <input class="layui-input" type="password" id="password" style="width: 250px;" placeholder="密码">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-btn" id="register" style="background-color: #ffffff; width: 80px; margin-left: 130px; color: #ff6600">注册</div>
+                        <div class="layui-btn" id="login" style="background-color: #ff6600; width: 80px">登录</div>
+                    </div>
+                    <div class="layui-form-item guest" style="color: white" id="guest">
+                        <p>访客模式</p>
+                    </div>
+
+                </form>
+            </div>
+            <div class="layui-col-md12" id="footer" >
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../config/config.js"></script>
+<script src="../../layui/layui.all.js"></script>
+<script>
+    const jquery = require('jquery')
+    const ipc = require('electron').ipcRenderer
+
+    jquery("#register").click( () => {
+        ipc.send('to_register')
+    })
+
+    jquery("#guest").click( () => {
+        ipc.send('guest')
+    })
+
+    jquery("#login").click( () => {
+        jquery.ajax({
+            url: getPort()+"login/login",
+            type: "post",
+            dataType: "json",
+            data: {
+                'username': jquery("#username").val(),
+                'password': jquery('#password').val()
+            },
+            success: function (data) {
+                if (data.status == 0) {
+                    ipc.send('to_index')
+                } else {
+                    layui.use(['layer'], () => {
+                        const layer = layui.layer;
+                        layer.msg('用户名或密码错误');
+                    })
+                    jquery('#password').val('')
+                }
+            }
+        })
+    })
+
+    jquery(document).on('keydown', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault()
+            jquery("#login").click()
+        }
+    })
+
+</script>
+</html>
