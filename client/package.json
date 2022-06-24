@@ -24,7 +24,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.5.1",
-    "jsdom": "^16.4.0",
+    "jsdom": "^16.5.0",
     "juery": "^1.0.0",
     "markdown-it": "^12.0.3"
   },
